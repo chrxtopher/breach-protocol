@@ -1,0 +1,28 @@
+# Virtual environment
+venv/
+.venv/
+
+# Python bytecode/cache
+__pycache__/
+*.pyc
+*.pyo
+
+# Test/lint caches
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+
+# Packaging
+*.egg-info/
+dist/
+build/
+
+# Env
+.env
+
+# IDE
+.idea/
+
+# OS clutter
+.DS_Store
+Thumbs.db
