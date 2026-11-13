@@ -15,3 +15,6 @@ class Buffer:
     def empty_count(self):
         return len(self.capacity) - len(self.contents)
 
+    def get_contents(self):
+        return self.contents
+
