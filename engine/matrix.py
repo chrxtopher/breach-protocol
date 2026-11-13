@@ -22,4 +22,14 @@ class Matrix:
             [random.choice(code_pool) for _ in range(size)] for _ in range(size)
         ]
 
-    # get matrix, row, col, cell
+    def get_grid(self):
+        return self.grid
+
+    def get_row(self, row):
+        return self.grid[row]
+
+    def get_col(self, col):
+        return [row[col] for row in self.grid]
+
+    def get_cell(self, row, col):
+        return self.grid[row][col]
