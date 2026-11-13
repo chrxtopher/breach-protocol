@@ -1,8 +1,6 @@
 # holds the player's cell selection (considered the player's hand)
 # fixed number of slots, set to match the length of the winning sequence
 
-#TODO: add, is_full, remaining_slots
-
 class Buffer:
     def __init__(self, capacity):
         self.capacity = capacity
