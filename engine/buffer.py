@@ -14,7 +14,7 @@ class Buffer:
         return len(self.contents) >= self.capacity
 
     def empty_count(self):
-        return len(self.capacity) - len(self.contents)
+        return self.capacity - len(self.contents)
 
     def get_contents(self):
         return self.contents
