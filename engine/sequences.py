@@ -1,7 +1,8 @@
 # defines the winning sequence, chosen from the matrix
 # to be matched with the player's buffer
 
+from engine.matrix import Matrix
 
-class Sequences:
-    def __init__(self):
-        print("sequences")
+def generate_sequences(matrix: Matrix, buffer_size: int):
+    winning_path = []
+    return winning_path
