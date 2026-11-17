@@ -9,7 +9,7 @@ class Buffer:
         self.capacity = capacity
         self.contents = []
 
-    def add(self, code: str):
+    def add(self, code: str) -> None:
         if self.is_full():
             raise BufferFullError(f"Buffer is full ({self.capacity})")
 
@@ -21,5 +21,5 @@ class Buffer:
     def empty_slot_count(self) -> int:
         return self.capacity - len(self.contents)
 
-    def get_contents(self) -> list:
+    def get_contents(self) -> list[str]:
         return self.contents
