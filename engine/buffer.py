@@ -3,18 +3,19 @@
 
 
 class Buffer:
-    def __init__(self, capacity):
+    def __init__(self, capacity: int):
         self.capacity = capacity
         self.contents = []
 
-    def add(self, code):
-        self.contents.append(code)
+    def add(self, code: str):
+        if not self.is_full():
+            self.contents.append(code)
 
-    def is_full(self):
+    def is_full(self) -> bool:
         return len(self.contents) >= self.capacity
 
-    def empty_count(self):
+    def empty_slot_count(self) -> int:
         return self.capacity - len(self.contents)
 
-    def get_contents(self):
+    def get_contents(self) -> list:
         return self.contents
