@@ -3,3 +3,7 @@ name = "breach-protocol"
 version = "0.1.0"
 description = "Python build of Cyberpunk 2077's Breach Protocol minigame"
 requires-python = ">=3.12"
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]
