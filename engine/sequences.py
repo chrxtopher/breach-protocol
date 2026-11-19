@@ -4,9 +4,10 @@ import random
 from engine.matrix import Matrix
 
 
-def generate_sequences(matrix: Matrix, buffer_size: int):
-    """Traverses a given Matrix grid and selects a winning sequence equal to a given buffer_size"""
-    row, col = 0, random.randrange(matrix.size)     # first pick is in the top row of the matrix, random column
+def generate_sequences(matrix: Matrix, buffer_size: int) -> list[str]:
+    """Traverses a given Matrix grid and selects a winning sequence equal to a given buffer size"""
+    # start on a random cell in the top row
+    row, col = (0, random.randrange(matrix.size))
     used = set()
     winning_path = []
     selecting_from_column = True
