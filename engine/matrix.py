@@ -3,7 +3,7 @@
 import random
 
 
-def generate_code_pool(size: int = 6):
+def generate_code_pool(size: int = 6) -> list[str]:
     if size > 256:
         raise ValueError("Size exceeds hex code ceiling (256)")
     codes = set()
@@ -15,7 +15,7 @@ def generate_code_pool(size: int = 6):
 
 
 class Matrix:
-    def __init__(self, size=6, code_pool=None):
+    def __init__(self, size: int = 6, code_pool: list[str] | None = None) -> None:
         if code_pool is None:
             code_pool = generate_code_pool()
         self.size = size
@@ -24,14 +24,14 @@ class Matrix:
             [random.choice(code_pool) for _ in range(size)] for _ in range(size)
         ]
 
-    def get_grid(self):
+    def get_grid(self) -> list[list[str]]:
         return self.grid
 
-    def get_row(self, row):
+    def get_row(self, row: int) -> list[str]:
         return self.grid[row]
 
-    def get_col(self, col):
+    def get_col(self, col: int) -> list[str]:
         return [row[col] for row in self.grid]
 
-    def get_cell(self, row, col):
+    def get_cell(self, row: int, col: int) -> str:
         return self.grid[row][col]
