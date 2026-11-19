@@ -3,9 +3,9 @@
 import random
 
 
-def generate_code_pool(size=6):
-    if size > 255:
-        raise ValueError("Size exceeds hexcode ceiling (255)")
+def generate_code_pool(size: int = 6):
+    if size > 256:
+        raise ValueError("Size exceeds hex code ceiling (256)")
     codes = set()
     while len(codes) < size:
         n = random.randint(0, 255)
