@@ -1,10 +1,14 @@
 # holds the player's cell selection (considered the player's hand)
 # fixed number of slots, set to match the length of the winning sequence
 
+
 class BufferFullError(Exception):
     pass
 
+
 class Buffer:
+    """Holds the codes the player has picked, up to a fixed capacity."""
+
     def __init__(self, capacity: int):
         self.capacity = capacity
         self.contents = []

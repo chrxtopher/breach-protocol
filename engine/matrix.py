@@ -4,6 +4,8 @@ import random
 
 
 def generate_code_pool(size: int = 6) -> list[str]:
+    """Generates list of random hex codes (00-FF) for Matrix grid — default size 6"""
+
     if size > 256:
         raise ValueError("Size exceeds hex code ceiling (256)")
     codes = set()
@@ -15,6 +17,8 @@ def generate_code_pool(size: int = 6) -> list[str]:
 
 
 class Matrix:
+    """A square grid of 2-digit hex codes drawn from a code pool"""
+
     def __init__(self, size: int = 6, code_pool: list[str] | None = None) -> None:
         if code_pool is None:
             code_pool = generate_code_pool()
