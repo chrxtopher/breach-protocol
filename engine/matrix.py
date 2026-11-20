@@ -19,13 +19,11 @@ def generate_code_pool(size: int = 6) -> list[str]:
 class Matrix:
     """A square grid of 2-digit hex codes drawn from a code pool"""
 
-    def __init__(self, size: int = 6, code_pool: list[str] | None = None) -> None:
-        if code_pool is None:
-            code_pool = generate_code_pool()
+    def __init__(self, size: int = 6) -> None:
         self.size = size
-        self.code_pool = code_pool
+        self.code_pool = generate_code_pool()
         self.grid = [
-            [random.choice(code_pool) for _ in range(size)] for _ in range(size)
+            [random.choice(self.code_pool) for _ in range(size)] for _ in range(size)
         ]
 
     def get_grid(self) -> list[list[str]]:
