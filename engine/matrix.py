@@ -27,10 +27,10 @@ class Matrix:
         ]
 
     def get_grid(self) -> list[list[str]]:
-        return self.grid
+        return [list(row) for row in self.grid]
 
     def get_row(self, row: int) -> list[str]:
-        return self.grid[row]
+        return list(self.grid[row])
 
     def get_col(self, col: int) -> list[str]:
         return [row[col] for row in self.grid]
