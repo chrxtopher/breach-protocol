@@ -29,9 +29,9 @@ def test_matrix_correct_size() -> None:
     """Matrix is a square of the correct size"""
     matrix = Matrix(10)
     grid = matrix.get_grid()
-    assert len(grid) == 10       # checks number of rows
+    assert len(grid) == 10  # checks number of rows
     for row in grid:
-        assert len(row) == 10    # checks number of columns
+        assert len(row) == 10  # checks number of columns
 
 
 def test_each_cell_is_in_code_pool() -> None:
