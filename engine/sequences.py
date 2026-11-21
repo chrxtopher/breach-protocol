@@ -31,7 +31,7 @@ def trace_path(matrix: Matrix, path_length: int) -> list[tuple[int, int]]:
     return path
 
 
-def generate_sequences(matrix: Matrix, buffer_size: int, sequence_count: int = 1) -> list[str]:
+def generate_sequences(matrix: Matrix, buffer_size: int) -> list[str]:
     """Utilize trace_path to generate a winning sequence"""
 
     path = trace_path(matrix, buffer_size)
