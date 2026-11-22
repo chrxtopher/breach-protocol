@@ -2,6 +2,9 @@ from engine.sequences import generate_sequences, trace_path
 from engine.matrix import Matrix
 
 
+# trace_path tests
+
+
 def test_path_length() -> None:
     """Traces a path of the correct length"""
     matrix = Matrix()
@@ -23,8 +26,8 @@ def test_each_position_is_inside_grid():
     matrix = Matrix()
     path = trace_path(matrix, 5)
     for row, col in path:
-        assert 0 <= row < 5
-        assert 0 <= col < 5
+        assert 0 <= row < matrix.size
+        assert 0 <= col < matrix.size
 
 def test_all_positions_are_unique():
     matrix = Matrix()
