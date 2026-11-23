@@ -7,6 +7,9 @@ from engine.matrix import Matrix
 def trace_path(matrix: Matrix, path_length: int) -> list[tuple[int, int]]:
     """Traverse a matrix to find a path of (row, col) coordinates"""
 
+    if path_length > matrix.size * 2:
+        raise ValueError("Path length is too long for this grid")
+
     # start on a random cell in the top row
     row, col = (0, random.randrange(matrix.size))
     path = []
