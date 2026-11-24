@@ -59,9 +59,9 @@ def test_row_col_rotation() -> None:
     for i in range(1, len(path)):
         prev, curr = path[i - 1], path[i]
         if i % 2 == 0:
-            assert curr[0] == prev[0] # checks row
+            assert curr[0] == prev[0]  # checks row
         else:
-            assert curr[1] == prev[1] # checks column
+            assert curr[1] == prev[1]  # checks column
 
 
 # generate_sequence tests
@@ -78,6 +78,3 @@ def test_each_sequence_code_is_in_code_pool():
     sequence = generate_sequences(matrix, 5)
     for code in sequence:
         assert code in matrix.code_pool
-
-
-
