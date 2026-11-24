@@ -34,6 +34,19 @@ def trace_path(matrix: Matrix, path_length: int) -> list[tuple[int, int]]:
     return path
 
 
+def assign_sequence_lengths(
+    path_length: int, sequence_count: int, max_length: int, min_shared: int
+) -> list[int]:
+    """Determines how long each target sequence will be"""
+
+    while True:
+        lengths = [max_length] + [
+            random.randint(2, max_length) for _ in range(sequence_count - 1)
+        ]
+        if sum(lengths) - path_length >= min_shared:
+            return lengths
+
+
 def generate_sequences(matrix: Matrix, buffer_size: int) -> list[str]:
     """Utilize trace_path to generate a winning sequence"""
 
