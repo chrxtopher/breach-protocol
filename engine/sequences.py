@@ -37,7 +37,7 @@ def trace_path(matrix: Matrix, path_length: int) -> list[tuple[int, int]]:
 def assign_sequence_lengths(
     path_length: int, sequence_count: int, max_length: int, min_shared: int
 ) -> list[int]:
-    """Determines how long each target sequence will be"""
+    """Determines the length of each target sequence"""
 
     while True:
         lengths = [max_length] + [
@@ -45,6 +45,28 @@ def assign_sequence_lengths(
         ]
         if sum(lengths) - path_length >= min_shared:
             return lengths
+
+
+def assign_coordinate_positions(
+    path: list[tuple[int, int]], sequence_lengths: list[int]
+) -> list[list[int]]:
+    """Determines which hex code coordinates belong to each target sequence"""
+
+    # empty list of sets, one set for each sequence
+    sequences = [set() for _ in sequence_lengths]
+
+    # shuffled order of positions from 0 - (path length - 1)
+    # used to give each sequence set a path coordinate index in a random order
+    order = random.sample(range(len(path)), len(path))
+
+    for position in order:
+        has_room = [
+            # i = index of a set within sequences
+            i for i in range(len(sequences)) if len(sequences[i]) < sequence_lengths[i]
+        ]
+        sequences[random.choice(has_room)].add(position)
+
+    return [sorted(sequence) for sequence in sequences]
 
 
 def generate_sequences(matrix: Matrix, buffer_size: int) -> list[str]:
