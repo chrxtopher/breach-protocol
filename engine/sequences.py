@@ -75,7 +75,20 @@ def assign_coordinate_indexes_to_sequences(
 
         sequences[random.choice(has_room)].add(coordinate_index)
 
-    # sorts sequences back into path order, preserving solvability
+    # top up any sequences that are still shorter than their target length
+    # added indexes are unique to that sequence, but shared with another
+    for sequence_index, sequence in enumerate(sequences):
+        missing_count = sequence_lengths[sequence_index] - len(sequence)
+        options = [
+            coordinate_index
+            for coordinate_index in range(len(path))
+            if coordinate_index not in sequence
+        ]
+
+        sequence.update(random.sample(options, missing_count))
+
+    # sorts each sequence of coordinate indexes back into path order
+    # sorting preserves solvability
     return [sorted(sequence) for sequence in sequences]
 
 
