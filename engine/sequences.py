@@ -4,6 +4,30 @@ import random
 from engine.matrix import Matrix
 
 
+def generate_sequences(
+    matrix: Matrix,
+    path_length: int,
+    sequence_count: int,
+    max_length: int,
+    min_shared: int,
+) -> list[list[str]]:
+    """Utilize trace_path to generate a winning sequence"""
+
+    path = trace_path(matrix, path_length)
+    path_codes = [matrix.get_cell(row, col) for row, col in path]
+    sequence_lengths = assign_sequence_lengths(path_length, sequence_count, max_length, min_shared)
+    sequences_to_convert = assign_coordinate_indexes_to_sequences(len(path), sequence_lengths)
+
+    # convert all indexes to their corresponding hex codes
+    sequences = [
+        [path_codes[coordinate_index] for coordinate_index in sequence]
+        for sequence in sequences_to_convert
+    ]
+
+    # sorting sequences by length puts longer sequences under shorter ones
+    return sorted(sequences, key=len)
+
+
 def trace_path(matrix: Matrix, path_length: int) -> list[tuple[int, int]]:
     """Traverse a matrix to find a path of (row, col) coordinates"""
 
@@ -92,8 +116,4 @@ def assign_coordinate_indexes_to_sequences(
     return [sorted(sequence) for sequence in sequences]
 
 
-def generate_sequences(matrix: Matrix, buffer_size: int) -> list[str]:
-    """Utilize trace_path to generate a winning sequence"""
 
-    path = trace_path(matrix, buffer_size)
-    return [matrix.get_cell(row, col) for row, col in path]
