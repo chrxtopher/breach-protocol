@@ -15,8 +15,12 @@ def generate_sequences(
 
     path = trace_path(matrix, path_length)
     path_codes = [matrix.get_cell(row, col) for row, col in path]
-    sequence_lengths = assign_sequence_lengths(path_length, sequence_count, max_length, min_shared)
-    sequences_to_convert = assign_coordinate_indexes_to_sequences(len(path), sequence_lengths)
+    sequence_lengths = assign_sequence_lengths(
+        path_length, sequence_count, max_length, min_shared
+    )
+    sequences_to_convert = assign_coordinate_indexes_to_sequences(
+        len(path), sequence_lengths
+    )
 
     # convert all indexes to their corresponding hex codes
     sequences = [
@@ -114,6 +118,3 @@ def assign_coordinate_indexes_to_sequences(
     # sorts each sequence of coordinate indexes back into path order
     # sorting preserves solvability
     return [sorted(sequence) for sequence in sequences]
-
-
-
