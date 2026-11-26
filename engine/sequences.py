@@ -48,7 +48,7 @@ def assign_sequence_lengths(
 
 
 def assign_coordinate_indexes_to_sequences(
-    path: list[tuple[int, int]], sequence_lengths: list[int]
+    path_length: int, sequence_lengths: list[int]
 ) -> list[list[int]]:
     """Deals indexes of coordinates within the path to one or more target sequences.
 
@@ -63,7 +63,7 @@ def assign_coordinate_indexes_to_sequences(
 
     # shuffled index order of coordinates
     # used to deal an index to each sequence in a random order
-    shuffled_order = random.sample(range(len(path)), len(path))
+    shuffled_order = random.sample(range(path_length), path_length)
 
     for coordinate_index in shuffled_order:
         # store indexes of sequences that have room for more coordinates
@@ -81,7 +81,7 @@ def assign_coordinate_indexes_to_sequences(
         missing_count = sequence_lengths[sequence_index] - len(sequence)
         options = [
             coordinate_index
-            for coordinate_index in range(len(path))
+            for coordinate_index in range(path_length)
             if coordinate_index not in sequence
         ]
 
