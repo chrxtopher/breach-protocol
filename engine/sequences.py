@@ -47,25 +47,35 @@ def assign_sequence_lengths(
             return lengths
 
 
-def assign_coordinate_positions(
+def assign_coordinate_indexes_to_sequences(
     path: list[tuple[int, int]], sequence_lengths: list[int]
 ) -> list[list[int]]:
-    """Determines which hex code coordinates belong to each target sequence"""
+    """Deals indexes of coordinates within the path to one or more target sequences.
 
-    # empty list of sets, one set for each sequence
+    Every index goes to at least one path, so the whole path is needed for each
+    solution.
+
+    Returns:
+        list[list[int]] -- [[indexes of coordinates within the path]]
+    """
+
     sequences = [set() for _ in sequence_lengths]
 
-    # shuffled order of positions from 0 - (path length - 1)
-    # used to give each sequence set a path coordinate index in a random order
-    order = random.sample(range(len(path)), len(path))
+    # shuffled index order of coordinates
+    # used to deal an index to each sequence in a random order
+    shuffled_order = random.sample(range(len(path)), len(path))
 
-    for position in order:
+    for coordinate_index in shuffled_order:
+        # store indexes of sequences that have room for more coordinates
         has_room = [
-            # i = index of a set within sequences
-            i for i in range(len(sequences)) if len(sequences[i]) < sequence_lengths[i]
+            sequence_index
+            for sequence_index in range(len(sequences))
+            if len(sequences[sequence_index]) < sequence_lengths[sequence_index]
         ]
-        sequences[random.choice(has_room)].add(position)
 
+        sequences[random.choice(has_room)].add(coordinate_index)
+
+    # sorts sequences back into path order, preserving solvability
     return [sorted(sequence) for sequence in sequences]
 
 
