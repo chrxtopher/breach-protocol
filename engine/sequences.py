@@ -145,3 +145,13 @@ def sequence_progress(buffer_contents: list[str], sequence: list[str]) -> int:
             curr_index += 1
 
     return curr_index
+
+
+def is_sequence_complete(buffer_contents: list[str], sequence: list[str]) -> bool:
+    """Determines if all codes within a target sequence have been selected.
+
+    Returns:
+        bool -- True if all codes within a target sequence have been selected, False otherwise
+    """
+
+    return sequence_progress(buffer_contents, sequence) == len(sequence)
