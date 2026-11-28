@@ -131,3 +131,13 @@ def assign_coordinate_indeces_to_sequences(
     # sorts each sequence of coordinate indeces back into path order
     # sorting preserves solvability
     return [sorted(sequence) for sequence in sequences]
+
+
+def sequence_progress(buffer_contents: list[str], sequence: list[str]) -> int:
+    """Count how many codes of the target sequence that have been selected, in order"""
+    curr_index = 0
+    for code in buffer_contents:
+        if curr_index < len(sequence) and sequence[curr_index] == code:
+            curr_index += 1
+
+    return curr_index
