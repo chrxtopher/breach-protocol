@@ -93,6 +93,9 @@ def assign_coordinate_indeces_to_sequences(
     Every index goes to at least one sequence, so the whole path is needed for each
     solution.
 
+    Effectively determines the contents of each target sequence, derived from the
+    whole path.
+
     Returns:
         list[list[int]] -- [[indeces of coordinates within the path]]
     """
