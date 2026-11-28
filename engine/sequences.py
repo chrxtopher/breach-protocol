@@ -77,6 +77,16 @@ def assign_sequence_lengths(
         list[int] -- [length of each target sequence]
     """
 
+    # guards to prevent looping forever
+    if max_length < 2:
+        raise ValueError("max_length must be at least 2")
+    if max_length >= path_length:
+        raise ValueError("max_length must be shorter than the path")
+    if min_shared < 1:
+        raise ValueError("min_shared must be at least 1")
+    if sequence_count * max_length - path_length < min_shared:
+        raise ValueError("min_shared is too high for these sequences")
+
     while True:
         lengths = [max_length] + [
             random.randint(2, max_length) for _ in range(sequence_count - 1)
