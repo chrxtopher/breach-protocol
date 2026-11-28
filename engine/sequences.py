@@ -20,11 +20,11 @@ def generate_sequences(
     sequence_lengths = assign_sequence_lengths(
         path_length, sequence_count, max_length, min_shared
     )
-    sequences_to_convert = assign_coordinate_indeces_to_sequences(
+    sequences_to_convert = assign_coordinate_indices_to_sequences(
         path_length, sequence_lengths
     )
 
-    # convert all indeces to their corresponding hex codes
+    # convert all indices to their corresponding hex codes
     sequences = [
         [path_codes[coordinate_index] for coordinate_index in sequence]
         for sequence in sequences_to_convert
@@ -95,10 +95,10 @@ def assign_sequence_lengths(
             return lengths
 
 
-def assign_coordinate_indeces_to_sequences(
+def assign_coordinate_indices_to_sequences(
     path_length: int, sequence_lengths: list[int]
 ) -> list[list[int]]:
-    """Deals indeces of coordinates within the path to one or more target sequences.
+    """Deals indices of coordinates within the path to one or more target sequences.
 
     Every index goes to at least one sequence, so the whole path is needed for each
     solution.
@@ -107,7 +107,7 @@ def assign_coordinate_indeces_to_sequences(
     whole path.
 
     Returns:
-        list[list[int]] -- [[indeces of coordinates within the path]]
+        list[list[int]] -- [[indices of coordinates within the path]]
     """
 
     sequences = [set() for _ in sequence_lengths]
@@ -117,7 +117,7 @@ def assign_coordinate_indeces_to_sequences(
     shuffled_order = random.sample(range(path_length), path_length)
 
     for coordinate_index in shuffled_order:
-        # store indeces of sequences that have room for more coordinates
+        # store indices of sequences that have room for more coordinates
         has_room = [
             sequence_index
             for sequence_index in range(len(sequences))
@@ -127,7 +127,7 @@ def assign_coordinate_indeces_to_sequences(
         sequences[random.choice(has_room)].add(coordinate_index)
 
     # top up any sequences that are still shorter than their target length
-    # added indeces are unique to that sequence, but shared with another
+    # added indices are unique to that sequence, but shared with another
     for sequence_index, sequence in enumerate(sequences):
         missing_count = sequence_lengths[sequence_index] - len(sequence)
         options = [
@@ -138,7 +138,7 @@ def assign_coordinate_indeces_to_sequences(
 
         sequence.update(random.sample(options, missing_count))
 
-    # sorts each sequence of coordinate indeces back into path order
+    # sorts each sequence of coordinate indices back into path order
     # sorting preserves solvability
     return [sorted(sequence) for sequence in sequences]
 
