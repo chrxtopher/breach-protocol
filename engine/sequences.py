@@ -134,7 +134,11 @@ def assign_coordinate_indeces_to_sequences(
 
 
 def sequence_progress(buffer_contents: list[str], sequence: list[str]) -> int:
-    """Count how many codes of the target sequence that have been selected, in order"""
+    """Count how many codes of the target sequence that have been selected, in order
+
+    Returns:
+        int -- count of codes that the player has selected
+    """
     curr_index = 0
     for code in buffer_contents:
         if curr_index < len(sequence) and sequence[curr_index] == code:
