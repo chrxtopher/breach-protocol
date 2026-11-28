@@ -1,5 +1,3 @@
-# defines the winning sequence, chosen from the matrix
-# to be matched with the player's buffer
 import random
 from engine.matrix import Matrix
 
@@ -11,29 +9,37 @@ def generate_sequences(
     max_length: int,
     min_shared: int,
 ) -> list[list[str]]:
-    """Utilize trace_path to generate a winning sequence"""
+    """Generate solvable target sequences of hex codes, shortest first.
+
+    Returns:
+        list[list[str]] -- [list of hex codes]
+    """
 
     path = trace_path(matrix, path_length)
     path_codes = [matrix.get_cell(row, col) for row, col in path]
     sequence_lengths = assign_sequence_lengths(
         path_length, sequence_count, max_length, min_shared
     )
-    sequences_to_convert = assign_coordinate_indexes_to_sequences(
-        len(path), sequence_lengths
+    sequences_to_convert = assign_coordinate_indeces_to_sequences(
+        path_length, sequence_lengths
     )
 
-    # convert all indexes to their corresponding hex codes
+    # convert all indeces to their corresponding hex codes
     sequences = [
         [path_codes[coordinate_index] for coordinate_index in sequence]
         for sequence in sequences_to_convert
     ]
 
-    # sorting sequences by length puts longer sequences under shorter ones
+    # sorting sequences by length places shorter sequences before longer ones
     return sorted(sequences, key=len)
 
 
 def trace_path(matrix: Matrix, path_length: int) -> list[tuple[int, int]]:
-    """Traverse a matrix to find a path of (row, col) coordinates"""
+    """Traverse a matrix to find a solvable path of (row, col) coordinates
+
+    Returns:
+        list[tuple[int, int]] -- [(row, col)]
+    """
 
     if path_length > matrix.size * 2:
         raise ValueError("Path length is too long for this grid")
@@ -65,7 +71,11 @@ def trace_path(matrix: Matrix, path_length: int) -> list[tuple[int, int]]:
 def assign_sequence_lengths(
     path_length: int, sequence_count: int, max_length: int, min_shared: int
 ) -> list[int]:
-    """Determines the length of each target sequence"""
+    """Determines the length of each target sequence
+
+    Returns:
+        list[int] -- [length of each target sequence]
+    """
 
     while True:
         lengths = [max_length] + [
@@ -75,16 +85,16 @@ def assign_sequence_lengths(
             return lengths
 
 
-def assign_coordinate_indexes_to_sequences(
+def assign_coordinate_indeces_to_sequences(
     path_length: int, sequence_lengths: list[int]
 ) -> list[list[int]]:
-    """Deals indexes of coordinates within the path to one or more target sequences.
+    """Deals indeces of coordinates within the path to one or more target sequences.
 
-    Every index goes to at least one path, so the whole path is needed for each
+    Every index goes to at least one sequence, so the whole path is needed for each
     solution.
 
     Returns:
-        list[list[int]] -- [[indexes of coordinates within the path]]
+        list[list[int]] -- [[indeces of coordinates within the path]]
     """
 
     sequences = [set() for _ in sequence_lengths]
@@ -94,7 +104,7 @@ def assign_coordinate_indexes_to_sequences(
     shuffled_order = random.sample(range(path_length), path_length)
 
     for coordinate_index in shuffled_order:
-        # store indexes of sequences that have room for more coordinates
+        # store indeces of sequences that have room for more coordinates
         has_room = [
             sequence_index
             for sequence_index in range(len(sequences))
@@ -104,7 +114,7 @@ def assign_coordinate_indexes_to_sequences(
         sequences[random.choice(has_room)].add(coordinate_index)
 
     # top up any sequences that are still shorter than their target length
-    # added indexes are unique to that sequence, but shared with another
+    # added indeces are unique to that sequence, but shared with another
     for sequence_index, sequence in enumerate(sequences):
         missing_count = sequence_lengths[sequence_index] - len(sequence)
         options = [
@@ -115,6 +125,6 @@ def assign_coordinate_indexes_to_sequences(
 
         sequence.update(random.sample(options, missing_count))
 
-    # sorts each sequence of coordinate indexes back into path order
+    # sorts each sequence of coordinate indeces back into path order
     # sorting preserves solvability
     return [sorted(sequence) for sequence in sequences]
